@@ -1,0 +1,18 @@
+name: PermsAbillity
+main: fr.craftpick.permsability.PermsAbillityPlugin
+version: ${version}
+author: louisoff84
+description: Fast database-backed permissions and groups manager for Bukkit/Spigot/Paper.
+load: STARTUP
+commands:
+  permsability:
+    description: Manage permissions, users and groups.
+    aliases: [pa, perms, perm]
+    usage: /pa help
+permissions:
+  permsability.admin:
+    description: Full access to PermsAbillity administration.
+    default: op
+  permsability.user:
+    description: Access to personal permission information.
+    default: true
