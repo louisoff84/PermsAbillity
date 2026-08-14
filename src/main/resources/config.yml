@@ -1,0 +1,34 @@
+# A unique name for this server when using network-wide permissions.
+server-name: global
+
+storage:
+  # sqlite, mysql, mariadb, postgresql
+  type: sqlite
+  sqlite-file: permsability.db
+  host: 127.0.0.1
+  port: 3306
+  database: minecraft
+  username: root
+  password: change-me
+  ssl: false
+  pool:
+    maximum-size: 10
+    minimum-idle: 2
+    connection-timeout-ms: 5000
+
+cache:
+  user-ttl-seconds: 300
+
+sync:
+  # Database revision polling allows several servers to share changes.
+  enabled: true
+  poll-seconds: 5
+
+permissions:
+  # Default group assigned to new users.
+  default-group: default
+  # Refresh attachments when another plugin is enabled and may register new permission nodes.
+  refresh-on-plugin-enable: true
+
+messages:
+  prefix: '&8[&bPermsAbillity&8] &7'
