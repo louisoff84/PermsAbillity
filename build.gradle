@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'fr.craftpick'
+version = '1.0.0'
+
+def targetJava = 8
+java {
+    sourceCompatibility = JavaVersion.toVersion(targetJava)
+    targetCompatibility = JavaVersion.toVersion(targetJava)
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:slf4j-nop:1.7.36'
+
+    implementation 'org.xerial:sqlite-jdbc:3.45.3.0'
+    implementation 'com.mysql:mysql-connector-j:8.4.0'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
+    implementation 'org.postgresql:postgresql:42.7.3'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand(version: project.version)
+    }
+}
+
+shadowJar {
+    archiveBaseName.set('PermsAbillity')
+    archiveClassifier.set('')
+    mergeServiceFiles()
+    relocate 'com.zaxxer.hikari', 'fr.craftpick.permsability.lib.hikari'
+    relocate 'org.slf4j', 'fr.craftpick.permsability.lib.slf4j'
+}
+
+build.dependsOn shadowJar
